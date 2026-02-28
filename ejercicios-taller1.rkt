@@ -42,3 +42,26 @@
 
 ;;--------------------------------------------------------------------------------------;;
 
+;; mapping : F L1 L2 -> L
+;; Propósito: Recibe una función unaria F y dos listas de números
+;; L1 y L2 de igual tamaño. Retorna los pares (a b) donde a ∈ L1,
+;; b ∈ L2 y se cumple F(a) = b.
+;;
+;; <lista-num> := ()
+;;             | (<número> <lista-num>)
+;;
+(define mapping
+  (lambda (F L1 L2)
+    (if (null? L1)
+        '()
+        (if (= (F (car L1)) (car L2))
+            (cons (list (car L1) (car L2))
+                  (mapping F (cdr L1) (cdr L2)))
+            (mapping F (cdr L1) (cdr L2))))))
+
+;; Pruebas
+(mapping (lambda (d) (* d 2)) '(1 2 3) '(2 4 6))
+(mapping (lambda (d) (* d 3)) '(1 2 2) '(2 4 6))
+
+;;--------------------------------------------------------------------------------------;;
+
