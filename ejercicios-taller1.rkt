@@ -125,3 +125,24 @@
 (balanced-parentheses? '(|(| |)| |)|))
 
 ;;--------------------------------------------------------------------------------------;;
+
+;; zip : F L1 L2 -> L
+;; Propósito: Recibe una función binaria F y dos listas L1 y L2
+;; de igual tamaño. Retorna una lista donde la posición n es el
+;; resultado de aplicar F al n-ésimo elemento de L1 y L2.
+;;
+;; <lista> := ()
+;;          | (<valor-scheme> <lista>)
+;;
+(define zip
+  (lambda (F L1 L2)
+    (if (null? L1)
+        '()
+        (cons (F (car L1) (car L2))
+              (zip F (cdr L1) (cdr L2))))))
+
+;; Pruebas
+(zip + '(1 4) '(6 2))
+(zip * '(11 5 6) '(10 9 8))
+
+;;--------------------------------------------------------------------------------------;;
