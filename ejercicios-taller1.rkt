@@ -146,3 +146,28 @@
 (zip * '(11 5 6) '(10 9 8))
 
 ;;--------------------------------------------------------------------------------------;;
+
+;; filter-acum : a b F acum filter -> valor
+;; Propósito: Aplica la función binaria F acumulando en acum
+;; todos los números en [a,b] que cumplan el predicado filter.
+;;
+;; <intervalo> := vacío  cuando a > b
+;;             | a, a+1, ..., b
+;;
+(define filter-acum
+  (lambda (a b F acum filtro)
+    (if (> a b)
+        acum
+        (filter-acum (+ a 1)
+                     b
+                     F
+                     (if (filtro a)
+                         (F acum a)
+                         acum)
+                     filtro))))
+
+;; Pruebas
+(filter-acum 1 10 + 0 odd?)
+(filter-acum 1 10 + 0 even?)
+
+;;--------------------------------------------------------------------------------------;;
