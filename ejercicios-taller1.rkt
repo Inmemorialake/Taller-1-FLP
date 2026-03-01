@@ -93,3 +93,35 @@
 (inversions '(1 2 3 4))
 
 ;;--------------------------------------------------------------------------------------;;
+
+;; balanced-parentheses? : L -> bool
+;; Propósito: Recibe una lista L de símbolos '|(| y '|)| y retorna
+;; #t si los paréntesis están correctamente balanceados, #f si no.
+;; Condiciones: cada apertura tiene su cierre, y en ningún punto
+;; el número de cierres supera al de aperturas.
+;;
+;; <lista-par> := ()
+;;             | (|(| <lista-par>)
+;;             | (|)| <lista-par>)
+;;
+;; Auxiliar recursiva con contador
+(define balanced-iter
+  (lambda (L contador)
+    (cond
+      [(< contador 0) #f]
+      [(null? L) (= contador 0)]
+      [(eqv? (car L) '|(|)
+       (balanced-iter (cdr L) (+ contador 1))]
+      [(eqv? (car L) '|)|)
+       (balanced-iter (cdr L) (- contador 1))]
+      [else (balanced-iter (cdr L) contador)])))
+
+(define balanced-parentheses?
+  (lambda (L)
+    (balanced-iter L 0)))
+
+;; Pruebas
+(balanced-parentheses? '(|(| |(| |)| |(| |)| |)|))
+(balanced-parentheses? '(|(| |)| |)|))
+
+;;--------------------------------------------------------------------------------------;;
