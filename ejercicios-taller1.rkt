@@ -65,3 +65,31 @@
 
 ;;--------------------------------------------------------------------------------------;;
 
+;; inversions : L -> N
+;; Propósito: Recibe una lista de números L y retorna la cantidad
+;; de inversiones, es decir pares (i,j) donde i < j pero L[i] > L[j].
+;;
+;; <lista-num> := ()
+;;             | (<número> <lista-num>)
+;;
+;; Auxiliar: cuenta cuántos elementos del resto son menores que x
+(define contar-menores
+  (lambda (x L)
+    (if (null? L)
+        0
+        (if (> x (car L))
+            (+ 1 (contar-menores x (cdr L)))
+            (contar-menores x (cdr L))))))
+
+(define inversions
+  (lambda (L)
+    (if (null? L)
+        0
+        (+ (contar-menores (car L) (cdr L))
+           (inversions (cdr L))))))
+
+;; Pruebas
+(inversions '(2 3 8 6 1))
+(inversions '(1 2 3 4))
+
+;;--------------------------------------------------------------------------------------;;
