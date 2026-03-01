@@ -314,7 +314,7 @@
 ;;
 ;; <palabra> := ()
 ;;           := (<símbolo>)
-;;           := (<simbolo> <palabra> <simbolo>)
+;;           := (<simbolo> <palabra-interior> <simbolo>)
 ;;
 (define palindrome?
   (lambda (palabra)
@@ -368,11 +368,9 @@
 ;;   representan el producto cartesiano entre L1 y L2.
 ;;   Cada par (a b) cumple a pertenece L1 y b pertenece L2.
 ;;
-;; <lista-pares> ::= ()
-;;                ::= (<par> <lista-pares>)
+;; <lista-símbolos> := ()
+;;                  := (<símbolo> <lista-símbolos>)
 ;;
-;; <par> ::= (<valor> <valor>)
-
 (define cartesian-product
   (lambda (L1 L2)
     (if (null? L1)
@@ -550,9 +548,9 @@
 ;;   Ejemplo: (operate (list f1 f2) '(a b c))
 ;;            => (f2 (f1 a b) c)
 ;;
-;; <lista-funciones> := ()
+;; <lista-funciones> := (<función-binaria>)
 ;;                   := (<función-binaria> <lista-funciones>)
-;; <lista-números>   := (<número>)
+;; <lista-números>   := (<número> <número>)
 ;;                   := (<número> <lista-números>)
 ;;
 (define operate
